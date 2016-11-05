@@ -1,0 +1,44 @@
+.camera-setting {
+	display: block;
+	width: 100%;
+}
+.camera-setting-label {
+	display: inline-block;
+	font-weight: 900;
+	width: 65%;
+}
+.camera-setting-prefix {
+	display: inline-block;
+	font-size: 1rem;
+	font-weight: 600;
+	width: 6%;
+}
+.camera-setting-input {
+	display: inline-block;
+	width: 50%;
+}
+
+.full-stop {
+	background-color: #efefef;
+	font-weight: 800;
+}
+
+#eazy_camera_settings .camera-setting {
+  display: block;
+  width: 100%;
+}
+#eazy_camera_settings .camera-setting .camera-setting-label {
+	display: inline-block;
+	width: 45%;
+}
+#eazy_camera_settings .camera-setting select {
+	display: inline-block;
+	width: 52%;
+}
+
+@media screen and (min-width: 768px) {
+	#eazy_camera_location, #eazy_camera_settings {
+		display: inline-block;
+		max-width: 30%;
+	}
+}
