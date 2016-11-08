@@ -32,6 +32,48 @@ if ( !defined( 'WPINC' ) ) { die; }
     }
 
     /** 
+    * Returns the current focal length value. Should be used inside of a loop.   
+    * @return string Returns the current focal length value.
+    **/    
+    function eazy_photo_focal_length() {
+      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_focal_length', true ) !== NULL) {
+        return get_post_meta( get_the_ID(), '_eazy_camera_settings_focal_length', true );
+      }   
+    }
+
+    /** 
+    * Returns the current camera model value. Should be used inside of a loop.   
+    * @return string Returns the current camera model value.
+    **/    
+    function eazy_photo_camera_model() {
+      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_camera', true ) !== NULL) {
+        return get_post_meta( get_the_ID(), '_eazy_camera_settings_camera', true );
+      }   
+    }    
+
+    /** 
+    * Returns the current latitude value. Should be used inside of a loop.   
+    * @return string Returns the current ISO value.
+    **/  
+    function eazy_photo_get_latitude() {
+      if ( get_post_meta( get_the_ID(), '_eazy_camera_latitude', true ) != NULL) {
+        $cameralatitude_value = get_post_meta( get_the_ID(), '_eazy_camera_latitude', true );
+        return $cameralatitude_value;
+      }
+    }
+
+    /** 
+    * Returns the current longitude value. Should be used inside of a loop.   
+    * @return string Returns the current longitude value.
+    **/ 
+    function eazy_photo_get_longitude() {
+      if ( get_post_meta( get_the_ID(), '_eazy_camera_longitude', true ) != NULL) {
+        $cameralongitude_value = get_post_meta( get_the_ID(), '_eazy_camera_longitude', true );
+        return $cameralongitude_value;
+      }
+    }
+
+    /** 
     * Formats the shutter speed value from decimal notation to fractions of a second.  
     * 
     * @param string $ssval Takes in a value of the current shutter speed.
@@ -137,7 +179,7 @@ if ( !defined( 'WPINC' ) ) { die; }
 
 
 
-// display LCD screen exposure settings HTML
+// display exposure settings as LCD screen
 function get_camera_lcd_exposure($aperture, $shutter_speed, $iso) { 
   if ( $aperture != '' || $shutter_speed != '' || $iso != '') { ?>
     <div class="eazy-photo-exposure-settings">
@@ -173,7 +215,7 @@ function get_camera_lcd_exposure($aperture, $shutter_speed, $iso) {
   <?php }
 }
 
-// display NON LCD screen exposure settings HTML
+// display exposure settings with icons
 function get_camera_non_lcd_exposure($aperture, $shutter_speed, $iso) { 
   if ( $aperture != '' || $shutter_speed != '' || $iso != '') { ?>
     <div class="eazy-photo-simple-exposure-settings">

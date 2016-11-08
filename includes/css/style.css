@@ -123,3 +123,9 @@
 .widget_eazy_photography_widget_exposure .eazy-photo-simple-exposure-settings .simple-exp-setting #aperture-value i {
     font-size: 2.25rem;
 }
+
+#map {
+height: 200px;
+padding-top: 1rem;
+width: 100%;
+}
