@@ -2,20 +2,21 @@
 if ( !defined( 'WPINC' ) ) { die; }
 
 if ('is_admin' ) {
-
-  //adds the admin settings, featured image admin column
+  
+  //adds the admin settings
   require_once(EZ_PLUGIN_PATH . 'includes/admin/admin-settings.php');
-
-  // when the google maps option is set to on include the settings
-  if (get_option('eazy-photo-settings-maps') == "on") {
-    //adds the location settings metabox to photo edit screen
-    require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-location-settings.php');
-  }
+  //adds functions to create the display for the eazy-photo admin
+  require_once(EZ_PLUGIN_PATH . 'includes/admin/admin-display.php');
   // when the exposure settings option is set to on include the settings
   if (get_option('eazy-photo-settings-camera') == "on") {
     //adds the exposure settings metabox to photo edit screen
     require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-exposure-settings.php');
     require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-exposure-html.php');
+  }
+  // when the google maps option is set to on include the settings
+  if (get_option('eazy-photo-settings-maps') == "on") {
+    //adds the location settings metabox to photo edit screen
+    require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-location-settings.php');
   }
 
   //adds admin CSS & JS
