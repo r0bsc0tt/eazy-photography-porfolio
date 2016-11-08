@@ -1,6 +1,6 @@
 <?php
 
-//call this if you are going to use the google maps api
+//enqueue google maps js files with the api key from the settings page
 function eazy_photo_enqueue_google_maps() {
   if (get_option('eazy-photo-settings-maps') == "on" ) {
     if (get_option('eazy-photo-settings-maps-api-key') != NULL) {
@@ -14,6 +14,7 @@ function eazy_photo_enqueue_google_maps() {
   }
 }
 
+//create inline script to display the map
 function eazy_photo_inline_script() { 
   $latitude = eazy_photo_get_latitude();
   $longitude = eazy_photo_get_longitude();
@@ -37,6 +38,7 @@ function eazy_photo_inline_script() {
   <?php
 }
 
+// if camera latitude & longitude is set, add the action to put inline script in footer
 function eazy_photo_make_map() {
   if ( get_post_meta( get_the_ID(), '_eazy_camera_longitude', true ) != NULL
        && get_post_meta( get_the_ID(), '_eazy_camera_latitude', true ) != NULL) {
