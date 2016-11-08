@@ -20,7 +20,7 @@ if ('is_admin' ) {
       array("25.3984", "25\"", "third-stop"), array("32", "30\"", "full-stop"), array("40.3174", "40\"", "third-stop"), array("50.7968", "50\"", "third-stop"), array("64", "60\"", "full-stop"),   );
   }
 
-  // returns an array with all aperture values
+  // returns an array of aperture values
   function all_aperture_vals() {
     return  array("1", "1.1", "1.2", "1.4", "1.6", "1.8", "2", "2.2", "2.5", "2.8", "3.2", "3.5", "4", 
       "4.5", "5.0", "5.6", "6.3", "7.1", "8", "9", "10", "11", "13", "14", "16", "18", "20", "22", "25", "28", "32", 
@@ -34,7 +34,7 @@ if ('is_admin' ) {
   *  
   * @param string $exif_tv Exif_tv references the exif data's shutter speed.
   *
-  * @return string Returns the closest shutterspeed value.
+  * @return string Returns the closest shutterspeed value from the array of shutterspeed values.
   **/
   function get_closest_shutter_speed($exif_tv) {
     $all_shutter_speed_vals = all_shutter_speed_vals();
@@ -68,6 +68,14 @@ if ('is_admin' ) {
     }
   }
 
+
+  /** 
+  * Creates the select elements dropdown of aperture values options.  
+  * @param string $current_av Used for the current aperture value.
+  * @param string $this_name Used for pass in a ID and name property for the select element (optional).
+  *
+  * @return string Returns selected if aperture value matches current value.
+  **/
   function get_aperture_values($current_av, $this_name="eazy_camera_settings_aperture") { 
     $all_aperture_vals = all_aperture_vals();
     ?>
@@ -112,11 +120,15 @@ if ('is_admin' ) {
   }
 
 
-
-
+  /** 
+  * Creates the select dropdown of shutter speed values options.  
+  * @param string $current_tv Used for the current shutter speed value.
+  * @param string $this_name Used for pass in a ID and name property for the select element (optional).
+  *
+  * @return string Returns selected if aperture value matches current value.
+  **/
   function get_shutter_speed_values($current_tv, $this_name="eazy_camera_settings_shutter_speed") { 
   $all_shutter_speed_vals = all_shutter_speed_vals(); ?>
-
     <select name="<?php echo $this_name; ?>" id="<?php echo $this_name; ?>">
         <option value=""></option>
       <?php 
@@ -126,28 +138,40 @@ if ('is_admin' ) {
         </option><?php 
       } ?>
     </select><?php
-
   }
 
 
-  // returns an array of meta info available to image, used inside loop
+  /** 
+  * Used inside a loop to get the thumnail ID, which gets the attachement metadata, and put into an array.
+  *    
+  * @return array Returns an array of meta info available to image.
+  **/
   function eazy_photo_exif_info_array() {
     $thisthumbid = get_post_thumbnail_id( get_the_id() );
     $thismeta = wp_get_attachment_metadata( $thisthumbid);
-    $eazy_photo_exif_info = array();
-    foreach ($thismeta['image_meta'] as $key => $value) { 
-      $eazy_photo_exif_info[$key] = $value;
+    if ($thismeta  != '') {
+      $eazy_photo_exif_info = array();
+      foreach ($thismeta['image_meta'] as $key => $value) { 
+        $eazy_photo_exif_info[$key] = $value;
+      }
+      return $eazy_photo_exif_info;
     }
-    return $eazy_photo_exif_info;
   }
 
-  // @PARAMETER $keyname takes a key from the array returned by eazy_photo_exif_array
+
+  /** 
+  * Takes a keyname from the eazy_photo_exif_info_array array and returns the value. 
+  * 
+  * @param string $keyname Accepts a keyname from the array returned by eazy_photo_exif_info_array.
+  *
+  * @return string Returns the value for the keyname used as a parameter.
+  **/
   function eazy_photo_exif_info_get_value($keyname) {
     $eazy_photo_meta = eazy_photo_exif_info_array();
-    if (in_array($eazy_photo_meta[$keyname], array('0', '')) != TRUE ) {
+    if (in_array($eazy_photo_meta[$keyname], array('0', '', NULL)) != TRUE ) {
       return $eazy_photo_meta[$keyname];
     }else {
-      return '';
+      return NULL;
     }
   }
 
