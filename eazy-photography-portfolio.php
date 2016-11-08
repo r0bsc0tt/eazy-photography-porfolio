@@ -20,6 +20,8 @@ define( 'EZ_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 define( 'EZ_PLUGIN_FILE_PATH', __FILE__ );
 define( 'EZ_PLUGIN_URL', str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 
+//requires functions to create the custom db table
+//require_once(EZ_PLUGIN_PATH . 'includes/admin/admin-create-table.php');
 //requires functions to create the photos custom post type and custom taxonomy terms
 require_once(EZ_PLUGIN_PATH . 'includes/eazy-photography-portfolio-create-post-type.php');
 //requires functions to create the admin settings for photos 
