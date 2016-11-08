@@ -36,9 +36,52 @@
 	width: 52%;
 }
 
+
+#advanced-sortables {
+	display: flex;
+	flex-direction: column;
+
+}
+
+#postimagediv {
+	order: 1;
+	width: 100%;
+}
+#eazy_camera_settings {
+	order: 2;
+	width: 100%;
+}
+#eazy_camera_location {
+	order: 3;
+	width: 100%;
+}
+
+
 @media screen and (min-width: 768px) {
-	#eazy_camera_location, #eazy_camera_settings {
+	#advanced-sortables {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+	#eazy_camera_location, #eazy_camera_settings, #postimagediv {
+		//margin: auto;
+		vertical-align: top;
+	}
+	#postimagediv {
+		order: 1;
+		width: 49%;
+	}
+	#eazy_camera_settings {
+		order: 2;
+		width: 49%;
+	}
+	#eazy_camera_location {
+		order: 3;
+		width: 100%;	
+	}
+	.location-setting {
 		display: inline-block;
-		max-width: 30%;
+		max-width: 49%;
 	}
 }
