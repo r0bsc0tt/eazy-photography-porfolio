@@ -113,15 +113,18 @@ if ('is_admin' ) {
 	        $cameralatitude_value = get_post_meta( $post->ID, '_eazy_camera_latitude', true );
 	        $cameralongitude_value = get_post_meta( $post->ID, '_eazy_camera_longitude', true );
 	        // Display the form, using the current value. ?>
-	      
-	        <label for="eazy_camera_latitude">
-	            <?php _e( 'Latitude: ', 'eazy-photography' ); ?>
-	        </label>
-	        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_latitude" name="eazy_camera_latitude" value="<?php echo esc_attr( $cameralatitude_value ); ?>"  size="25"/>
-	        <label for="eazy_camera_longitude">
-	            <?php _e( 'Longitude: ', 'eazy-photography' ); ?>
-	        </label>
-	        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_longitude" name="eazy_camera_longitude" value="<?php echo esc_attr( $cameralongitude_value ); ?>" size="25" />
+	      	<div class="location-setting">
+		        <label for="eazy_camera_latitude" class="camera-setting-label">
+		            <?php _e( 'Latitude: ', 'eazy-photography' ); ?>
+		        </label>
+		        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_latitude" name="eazy_camera_latitude" value="<?php echo esc_attr( $cameralatitude_value ); ?>"  size="25"/>
+	        </div>
+	        <div class="location-setting">
+		        <label for="eazy_camera_longitude" class="camera-setting-label">
+		            <?php _e( 'Longitude: ', 'eazy-photography' ); ?>
+		        </label>
+		        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_longitude" name="eazy_camera_longitude" value="<?php echo esc_attr( $cameralongitude_value ); ?>" size="25" />
+	        </div>
 	        <p>Format should be something like <code>+###.######</code> or <code>-08.1234598</code></p>
 	        <p><a href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en" target="_blank">Click Here</a> for more information.</p>
 	        <?php
