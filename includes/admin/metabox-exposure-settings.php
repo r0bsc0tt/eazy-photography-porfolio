@@ -91,7 +91,6 @@ if ('is_admin' ) {
           }
    
           /* OK, it's safe for us to save the data now. */
-   
           // Sanitize the user input.
           $aperture = sanitize_text_field( $_POST['eazy_camera_settings_aperture'] );
           $shutter_speed = sanitize_text_field( $_POST['eazy_camera_settings_shutter_speed'] );
@@ -108,14 +107,14 @@ if ('is_admin' ) {
           $all_tv = all_shutter_speed_vals();
 
           //  if exif data has a aperture value, use that to set post meta, else use select option
-          if ($exif_av != '0') {
+          if ($exif_av !== NULL ) {
               update_post_meta( $post_id, '_eazy_camera_settings_aperture', $exif_av );
           }else {
               update_post_meta( $post_id, '_eazy_camera_settings_aperture', $aperture );
           }
 
           //   if exif data has a shuter speed value, use that to set post meta, else use select option
-          if ($exif_tv != '0') {
+          if ($exif_tv !== NULL ) {
             if ( in_array($exif_tv, $all_tv) ) {
               update_post_meta( $post_id, '_eazy_camera_settings_shutter_speed', $exif_tv );
             } else {
@@ -127,24 +126,24 @@ if ('is_admin' ) {
           }
 
           // if exif data has a ISO value, use that to set post meta, else use text field option
-          if ($exif_iso != '0') {
+          if ($exif_iso != NULL) {
              update_post_meta( $post_id, '_eazy_camera_settings_iso', $exif_iso );
           }else {
               update_post_meta( $post_id, '_eazy_camera_settings_iso', $iso );
           }
 
           // if exif data has a camera model, use that to set post meta, else use text field option
-          if ($exif_camera != '') {
+          if ($exif_camera != NULL) {
              update_post_meta( $post_id, '_eazy_camera_settings_camera', $exif_camera );
           }else {
               update_post_meta( $post_id, '_eazy_camera_settings_camera', $cameramodel );
           }      
 
           // if exif data has a focal length, use that to set post meta, else use text field option
-          if ($exif_focal_length != '') {
+          if ($exif_focal_length != NULL) {
              update_post_meta( $post_id, '_eazy_camera_settings_focal_length', $exif_focal_length );
           }else {
-              update_post_meta( $post_id, '_eazy_camera_settings_camera', $focal_length );
+              update_post_meta( $post_id, '_eazy_camera_settings_focal_length', $focal_length );
           }    
       }
    
@@ -197,6 +196,7 @@ if ('is_admin' ) {
               </label>
               <input type="text" id="eazy_camera_settings_focal_length" name="eazy_camera_settings_focal_length" value="<?php echo esc_attr( $focal_length_value ); ?>" class="camera-setting-input" size="25" />
           </div>
+          <p>These fields will auto-populate on publish if your featured image has exif metadata. </p> 
           <?php
       }
   }
