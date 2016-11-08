@@ -1,0 +1,125 @@
+.eazy-photo-exposure-settings {
+    background-color: #999966;
+    border: 0.175rem solid #000;
+    border-radius: 0.5rem;
+    color: #000;
+    display: block;
+    font-family: sans-serif;
+    font-weight: 800;
+    line-height: 1;
+    max-width: 350px;
+    min-width: 270px;
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    width: 100%;
+}
+.eazy-photo-exposure-settings .tv, .eazy-photo-exposure-settings .av, .eazy-photo-exposure-settings .iso {
+    display: inline-block;
+}
+.eazy-photo-exposure-settings .tv .value, .eazy-photo-exposure-settings .av .value, .eazy-photo-exposure-settings .iso .value {
+    font-size: 2.75rem;
+}
+.eazy-photo-exposure-settings .tv, .eazy-photo-exposure-settings .av {
+    font-size: 2rem;
+    line-height: 1;
+    margin: 0;
+}
+.eazy-photo-exposure-settings .settings-top-row .exp-mode {
+    display: block;
+    font-size: 1.95rem;
+    position: absolute;
+}
+.eazy-photo-exposure-settings .settings-top-row .tv {
+    left: 20%;
+    position: relative;
+    vertical-align: top;
+}
+.eazy-photo-exposure-settings .settings-top-row .white-balance {
+    background-color: #000;
+    border-radius: 0.25rem;
+    color: #999966;
+    padding: 3px 6px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+.eazy-photo-exposure-settings .settings-middle-row .av {
+    left: 12.5%;
+    position: relative;
+}
+.eazy-photo-exposure-settings .settings-middle-row .av .value {
+    font-size: 3.5rem;
+}
+.eazy-photo-exposure-settings .settings-middle-row .iso .label {
+    display: block;
+}
+.eazy-photo-exposure-settings .settings-middle-row .iso .value {
+    display: block;
+}
+.eazy-photo-exposure-settings .settings-middle-row .raw {
+    bottom: 65%;
+    font-size: 1.125rem;
+    position: absolute;
+    right: 1.35rem;
+}
+.eazy-photo-exposure-settings .settings-middle-row .meter-type {
+    bottom: 50px;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+}
+.eazy-photo-exposure-settings .settings-middle-row .meter-type #meter-type {
+    max-height: 50px;
+    max-width: 50px;
+}
+.eazy-photo-exposure-settings .settings-bottom-row {
+    display: block;
+    width: 100%;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .exposure-scale {
+    display: inline-block;
+    margin-top: -0.5rem;
+    width: 65%;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .exposure-scale #settings {
+    vertical-align: bottom;
+    width: 100%;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .exposure-scale .eazy-photo-stroke {
+    stroke: #000;
+    stroke-width: 1px;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .battery-icon {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+    width: 33%;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .battery-icon #Battery_Shape {
+    fill: transparent;
+    stroke: #000;
+    stroke-width: 0.125rem;
+    width: 90%;
+}
+.eazy-photo-exposure-settings .settings-bottom-row .battery-icon #cell1, .eazy-photo-exposure-settings .settings-bottom-row .battery-icon #cell2, .eazy-photo-exposure-settings .settings-bottom-row .battery-icon #cell3, .eazy-photo-exposure-settings .settings-bottom-row .battery-icon #cell4, .eazy-photo-exposure-settings .settings-bottom-row .battery-icon #cell5 {
+    fill: #000;
+}
+.widget_eazy_photography_widget_exposure .eazy-photo-simple-exposure-settings .simple-exp-setting {
+    display: inline-block;
+    width: 33%;
+}
+.widget_eazy_photography_widget_exposure .eazy-photo-simple-exposure-settings .simple-exp-setting svg {
+    display: block;
+    height: 60px;
+    margin: 0 auto;
+    width: 60px;
+}
+.widget_eazy_photography_widget_exposure .eazy-photo-simple-exposure-settings .simple-exp-setting .value {
+    display: block;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.widget_eazy_photography_widget_exposure .eazy-photo-simple-exposure-settings .simple-exp-setting #aperture-value i {
+    font-size: 2.25rem;
+}
