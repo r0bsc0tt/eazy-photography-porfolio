@@ -27,4 +27,4 @@ require_once(EZ_PLUGIN_PATH . 'includes/eazy-photography-portfolio-create-post-t
 //requires functions to create the admin settings for photos 
 require_once(EZ_PLUGIN_PATH . 'includes/eazy-photography-portfolio-create-admin-section.php');
 //requires functions to create the functions for displaying the portfolio
-require_once(EZ_PLUGIN_PATH . 'includes/eazy-photography-portfolio-create-functions.php');
+require_once(EZ_PLUGIN_PATH . 'includes/eazy-photography-portfolio-create-display-functions.php');
