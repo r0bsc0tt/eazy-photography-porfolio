@@ -76,7 +76,7 @@ if ( !post_type_exists( 'eazy-photo' ) ) {
 					'public' => true,
 					'query_var'=> true,
 					'label' => 'Photo Categories',
-					'rewrite' => array('slug' => 'category', 'hierarchical' => true)
+					'rewrite' => array('slug' => 'photo-category', 'hierarchical' => true)
 					)
 		);
 		register_taxonomy('photo-collection',
@@ -88,7 +88,7 @@ if ( !post_type_exists( 'eazy-photo' ) ) {
 					'public' => true,
 					'query_var'=> true,
 					'label' => 'Photo Collections',
-					'rewrite' => array('slug' => 'collections', 'hierarchical' => true)
+					'rewrite' => array('slug' => 'photo-collections', 'hierarchical' => true)
 					)
 		);
 	}
