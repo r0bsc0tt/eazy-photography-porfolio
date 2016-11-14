@@ -17,6 +17,7 @@ if ('is_admin' ) {
   if (get_option('eazy-photo-settings-maps') == "on") {
     //adds the location settings metabox to photo edit screen
     require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-location-settings.php');
+    require_once(EZ_PLUGIN_PATH . 'includes/admin/metabox-exposure-html.php');
   }
 
   //adds admin CSS & JS

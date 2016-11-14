@@ -6,8 +6,9 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current aperture value.
     **/
     function eazy_photo_aperture() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_aperture', true ) !== NULL) {
-        return get_post_meta( get_the_ID(), '_eazy_camera_settings_aperture', true );
+      if ( get_photo_meta(get_the_ID())['aperture'] !== NULL || 0 ) {
+
+        return get_photo_meta(get_the_ID())['aperture'];
       }
     }
 
@@ -16,8 +17,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current shutter speed value.
     **/
     function eazy_photo_shutter_speed() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_shutter_speed', true ) !== NULL) {
-        return get_post_meta( get_the_ID(), '_eazy_camera_settings_shutter_speed', true );
+      if ( get_photo_meta(get_the_ID())['shutter_speed'] !== NULL || 0 ) {
+        return get_photo_meta(get_the_ID())['shutter_speed'];
       }   
     }
 
@@ -26,8 +27,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current ISO value.
     **/    
     function eazy_photo_iso() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_iso', true ) !== NULL) {
-        return get_post_meta( get_the_ID(), '_eazy_camera_settings_iso', true );
+      if ( get_photo_meta(get_the_ID())['iso'] !== NULL || 0 ) {
+        return get_photo_meta(get_the_ID())['iso'];
       }   
     }
 
@@ -36,8 +37,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current focal length value.
     **/    
     function eazy_photo_focal_length() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_focal_length', true ) !== NULL) {
-        return get_post_meta( get_the_ID(), '_eazy_camera_settings_focal_length', true );
+      if ( get_photo_meta(get_the_ID())['focal_length'] !== NULL || 0 ) {
+        return get_photo_meta(get_the_ID())['focal_length'];
       }   
     }
 
@@ -46,8 +47,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current camera model value.
     **/    
     function eazy_photo_camera_model() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_settings_camera', true ) !== NULL) {
-        return get_post_meta( get_the_ID(), '_eazy_camera_settings_camera', true );
+      if ( get_photo_meta(get_the_ID())['camera'] !== NULL || 0 ) {
+        return get_photo_meta(get_the_ID())['camera'];
       }   
     }    
 
@@ -56,9 +57,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current ISO value.
     **/  
     function eazy_photo_get_latitude() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_latitude', true ) != NULL) {
-        $cameralatitude_value = get_post_meta( get_the_ID(), '_eazy_camera_latitude', true );
-        return $cameralatitude_value;
+      if ( get_photo_meta(get_the_ID())['latitude'] !== NULL || 0) {
+        return get_photo_meta(get_the_ID())['latitude'];
       }
     }
 
@@ -67,9 +67,8 @@ if ( !defined( 'WPINC' ) ) { die; }
     * @return string Returns the current longitude value.
     **/ 
     function eazy_photo_get_longitude() {
-      if ( get_post_meta( get_the_ID(), '_eazy_camera_longitude', true ) != NULL) {
-        $cameralongitude_value = get_post_meta( get_the_ID(), '_eazy_camera_longitude', true );
-        return $cameralongitude_value;
+      if ( get_photo_meta(get_the_ID())['longitude'] !== NULL || 0) {
+        return get_photo_meta(get_the_ID())['longitude'];
       }
     }
 
@@ -186,17 +185,17 @@ function get_camera_lcd_exposure($aperture, $shutter_speed, $iso) {
       <div class="settings-top-row">
         <div class="exp-mode sansserif">M</div>
         <h4 class="tv sansserif">
-            <span class="value"><?php echo clean_shutter_speed_value($shutter_speed); ?></span>
+            <span class="value"><?php if ($shutter_speed != '') {echo clean_shutter_speed_value($shutter_speed);} else{ echo "--"; }?></span>
           </h4>
         <div class="white-balance sansserif">AWB</div>
       </div>
       <div class="settings-middle-row">
         <h4 class="iso sansserif">
         <span class="label">ISO</span>
-        <span class="value"><?php echo $iso; ?></span>
+        <span class="value"><?php if ($iso != '') {echo $iso;} else{ echo "--"; } ?></span>
       </h4>
         <h4 class="av sansserif">
-        <span class="value"><?php echo $aperture; ?></span>
+        <span class="value"><?php if ($aperture != '') {echo $aperture;} else{ echo "--"; } ?></span>
       </h4>
         <div class="raw sansserif">RAW</div>
         <div class="meter-type">
@@ -223,17 +222,30 @@ function get_camera_non_lcd_exposure($aperture, $shutter_speed, $iso) {
         <div id="av" class="simple-exp-setting">
           <?php get_aperture_icon(); ?>
           <div id="aperture-value" class="value">
-            <h4><i class="ligature">f</i>/<?php echo $aperture; ?></h4>
+            <h4><?php 
+            if ($aperture !== '') {?> 
+              <i class="ligature">f</i>/<?php echo $aperture; ?>
+            <?php }else { echo "---";}
+             ?></h4>
+            <h4></h4>
           </div>
         </div><div id="tv" class="simple-exp-setting">
           <?php get_shutter_speed_icon(); ?>
           <div id="shutter_speed-value" class="value">
-            <h4><?php echo clean_shutter_speed_value($shutter_speed); ?></h4>
+            <h4><?php 
+            if ($shutter_speed !== '') {
+              echo clean_shutter_speed_value($shutter_speed);
+            }else { echo "---";}
+             ?></h4>
           </div>
         </div><div id="iso" class="simple-exp-setting">
           <?php get_iso_icon(); ?>
           <div id="iso-value" class="value">
-            <h4><?php echo $iso; ?></h4>
+            <h4><?php 
+            if ($iso !== '') {
+              echo $iso;
+            }else { echo "---";}
+             ?></h4>
           </div>
         </div> 
 

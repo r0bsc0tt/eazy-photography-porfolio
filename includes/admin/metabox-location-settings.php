@@ -95,8 +95,20 @@ if ('is_admin' ) {
 	        $cameralatitude = sanitize_text_field( $_POST['eazy_camera_latitude'] );
 	        $cameralongitude = sanitize_text_field( $_POST['eazy_camera_longitude'] );
 	        // Update the meta field.
-	        update_post_meta( $post_id, '_eazy_camera_latitude', $cameralatitude );
-	        update_post_meta( $post_id, '_eazy_camera_longitude', $cameralongitude );
+	        //update_post_meta( $post_id, '_eazy_camera_latitude', $cameralatitude );
+	        //update_post_meta( $post_id, '_eazy_camera_longitude', $cameralongitude );
+	        $locationarray = array();
+	        
+	        if ($cameralatitude != NULL || '0.000000') {
+	        	$locationarray['latitude'] = $cameralatitude;
+	        }
+	        if ($cameralongitude != NULL || '0.000000') {
+	        	$locationarray['longitude'] = $cameralongitude;
+	        }
+
+
+
+	        eazy_photo_add_location_to_db($post_id, $locationarray);
 	    }
 	 
 	 
@@ -109,9 +121,12 @@ if ('is_admin' ) {
 	        // Add a nonce field.
 	        wp_nonce_field( 'eazy_photography_inner_custom_box_location', 'eazy_photography_inner_custom_box_location_location_nonce' );
 	 
+
+	        $thisphoto = get_photo_meta(get_the_ID());
 	        // Use get_post_meta to retrieve an existing value from the database.
-	        $cameralatitude_value = get_post_meta( $post->ID, '_eazy_camera_latitude', true );
-	        $cameralongitude_value = get_post_meta( $post->ID, '_eazy_camera_longitude', true );
+	        $cameralatitude_value = $thisphoto['latitude'];
+	        $cameralongitude_value = $thisphoto['longitude'];
+
 	        // Display the form, using the current value. ?>
 	      	<div class="location-setting">
 		        <label for="eazy_camera_latitude" class="camera-setting-label">

@@ -98,53 +98,64 @@ if ('is_admin' ) {
           $cameramodel = sanitize_text_field( $_POST['eazy_camera_settings_camera'] );
           $focal_length = sanitize_text_field( $_POST['eazy_camera_settings_focal_length'] );
 
+          // These come from metadata / exif
           $exif_av = eazy_photo_exif_info_get_value('aperture');
           $exif_tv = eazy_photo_exif_info_get_value('shutter_speed');
           $exif_iso = eazy_photo_exif_info_get_value('iso');
           $exif_camera = eazy_photo_exif_info_get_value('camera');
           $exif_focal_length = eazy_photo_exif_info_get_value('focal_length');
 
+          // all shutter speeds to check if value is in these values
           $all_tv = all_shutter_speed_vals();
+
+          //empty array to  put values in
+          $expvalarray = array();
+
+          //set ID to post ID
+          $expvalarray['id'] = $post_id;
 
           //  if exif data has a aperture value, use that to set post meta, else use select option
           if ($exif_av !== NULL ) {
-              update_post_meta( $post_id, '_eazy_camera_settings_aperture', $exif_av );
+            $expvalarray['aperture'] =  $exif_av; 
           }else {
-              update_post_meta( $post_id, '_eazy_camera_settings_aperture', $aperture );
+            $expvalarray['aperture'] =  $aperture; 
           }
 
           //   if exif data has a shuter speed value, use that to set post meta, else use select option
           if ($exif_tv !== NULL ) {
             if ( in_array($exif_tv, $all_tv) ) {
-              update_post_meta( $post_id, '_eazy_camera_settings_shutter_speed', $exif_tv );
+              $expvalarray['shutter_speed'] =  $exif_tv; 
             } else {
               $updated_tv = get_closest_shutter_speed($exif_tv);
-              update_post_meta( $post_id, '_eazy_camera_settings_shutter_speed', $updated_tv);
+              $expvalarray['shutter_speed'] =  $updated_tv; 
             } 
           }else {
-             update_post_meta( $post_id, '_eazy_camera_settings_shutter_speed', $shutter_speed );
+            $expvalarray['shutter_speed'] =  $shutter_speed; 
           }
 
           // if exif data has a ISO value, use that to set post meta, else use text field option
           if ($exif_iso != NULL) {
-             update_post_meta( $post_id, '_eazy_camera_settings_iso', $exif_iso );
+            $expvalarray['iso'] =  $exif_iso; 
           }else {
-              update_post_meta( $post_id, '_eazy_camera_settings_iso', $iso );
+            $expvalarray['iso'] =  $iso; 
           }
 
           // if exif data has a camera model, use that to set post meta, else use text field option
           if ($exif_camera != NULL) {
-             update_post_meta( $post_id, '_eazy_camera_settings_camera', $exif_camera );
+            $expvalarray['camera'] =  $exif_camera; 
           }else {
-              update_post_meta( $post_id, '_eazy_camera_settings_camera', $cameramodel );
+            $expvalarray['camera'] =  $cameramodel; 
           }      
 
           // if exif data has a focal length, use that to set post meta, else use text field option
           if ($exif_focal_length != NULL) {
-             update_post_meta( $post_id, '_eazy_camera_settings_focal_length', $exif_focal_length );
+            $expvalarray['focal_length'] =  $exif_focal_length; 
           }else {
-              update_post_meta( $post_id, '_eazy_camera_settings_focal_length', $focal_length );
+            $expvalarray['focal_length'] =  $focal_length; 
           }    
+
+          // add exposure properties and values to DB
+          eazy_photo_add_to_db($post_id, $expvalarray);
       }
    
    
@@ -154,45 +165,48 @@ if ('is_admin' ) {
        * @param WP_Post $post The post object.
        */
       public function render_camera_settings_meta_box( $post ) {
-   
           // Add a nonce field.
           wp_nonce_field( 'eazy_photography_inner_custom_box', 'eazy_photography_inner_custom_box_nonce' );
    
+
+          $thisphoto = get_photo_meta(get_the_ID());
+
+
           // Use get_post_meta to retrieve an existing value from the database.
-          $aperture_value = get_post_meta( $post->ID, '_eazy_camera_settings_aperture', true );
-          $shutter_speed_value = get_post_meta( $post->ID, '_eazy_camera_settings_shutter_speed', true );
-          $iso_value = get_post_meta( $post->ID, '_eazy_camera_settings_iso', true );
-          $camera_value = get_post_meta( $post->ID, '_eazy_camera_settings_camera', true );
-          $focal_length_value = get_post_meta( $post->ID, '_eazy_camera_settings_focal_length', true );
+          $aperture_value = $thisphoto['aperture'];
+          $shutter_speed_value = $thisphoto['shutter_speed'];
+          $iso_value = $thisphoto['iso'];
+          $camera_value = $thisphoto['camera'];
+          $focal_length_value = $thisphoto['focal_length'];
           
           // Display the form, using the current value. ?>
           <div class="camera-setting">
               <label for="eazy_camera_settings_aperture" class="camera-setting-label">
-                  <?php _e( 'Aperture', 'textdomain' ); ?>
+                  <?php _e( 'Aperture', 'eazy-photography' ); ?>
               </label>
               <?php get_aperture_values($aperture_value); ?>
           </div>
           <div class="camera-setting">
               <label for="eazy_camera_settings_shutter_speed" class="camera-setting-label">
-                  <?php _e( 'Shutter speed', 'textdomain' ); ?>
+                  <?php _e( 'Shutter speed', 'eazy-photography' ); ?>
               </label>
               <?php get_shutter_speed_values($shutter_speed_value); ?>
           </div>
           <div class="camera-setting">        
-              <label for="eazy_camera_settings_iso" style="<?php echo $iso_value; ?>" class="camera-setting-label">
-                  <?php _e( 'ISO', 'textdomain' ); ?>
+              <label for="eazy_camera_settings_iso" class="camera-setting-label">
+                  <?php _e( 'ISO', 'eazy-photography' ); ?>
               </label>
               <input type="text" id="eazy_camera_settings_iso" name="eazy_camera_settings_iso" value="<?php echo esc_attr( $iso_value ); ?>" class="camera-setting-input" size="25" />
           </div>
           <div class="camera-setting">        
-              <label for="eazy_camera_settings_camera" style="<?php echo $camera_value; ?>" class="camera-setting-label">
-                  <?php _e( 'Camera', 'textdomain' ); ?>
+              <label for="eazy_camera_settings_camera" class="camera-setting-label">
+                  <?php _e( 'Camera', 'eazy-photography' ); ?>
               </label>
               <input type="text" id="eazy_camera_settings_camera" name="eazy_camera_settings_camera" value="<?php echo esc_attr( $camera_value ); ?>" class="camera-setting-input" size="25" />
           </div>          
           <div class="camera-setting">        
-              <label for="eazy_camera_settings_focal_length" style="<?php echo $focal_length_value; ?>" class="camera-setting-label">
-                  <?php _e( 'Focal Length', 'textdomain' ); ?>
+              <label for="eazy_camera_settings_focal_length" class="camera-setting-label">
+                  <?php _e( 'Focal Length', 'eazy-photography' ); ?>
               </label>
               <input type="text" id="eazy_camera_settings_focal_length" name="eazy_camera_settings_focal_length" value="<?php echo esc_attr( $focal_length_value ); ?>" class="camera-setting-input" size="25" />
           </div>
