@@ -4,9 +4,11 @@
 function eazy_photo_enqueue_google_maps() {
   if (get_option('eazy-photo-settings-maps') == "on" ) {
     if (get_option('eazy-photo-settings-maps-api-key') != NULL) {
+      
       $apikey = get_option('eazy-photo-settings-maps-api-key');
       wp_register_script( 'google-maps', 'https://maps.googleapis.com/maps/api/js?key='.$apikey, array(), '', true );
       wp_enqueue_script( 'google-maps' );
+    
     } else {
       echo "You need to enter an API key on the settings page." . get_option('eazy-photo-settings-maps-api-key');
     }
@@ -14,42 +16,30 @@ function eazy_photo_enqueue_google_maps() {
   }
 }
 
-//create inline script to display the map
-function eazy_photo_inline_script() { 
-  $latitude = eazy_photo_get_latitude();
-  $longitude = eazy_photo_get_longitude();
-  ?>
-  <script type="text/javascript"> 
-    var map = new google.maps.Map(document.getElementById("map"), {
-      center: {
-        lat: <?php echo $latitude;?>,
-        lng: <?php echo $longitude;?>
-      },
-      zoom: 15
-    });
 
-    var marker = new google.maps.Marker({
-      position: {lat: <?php echo $latitude;?>, lng: <?php echo $longitude;?>},
-      map: map
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-  </script>
-  <?php
-}
-
-// if camera latitude & longitude is set, add the action to put inline script in footer
+//PROBABLY A BETTER WAY TO DO THIS
+// checks for long & lat vals, puts them in an array for use as an if isset statement to check if both are set before dsplaying map.
 function eazy_photo_make_map() {
-  if ( get_post_meta( get_the_ID(), '_eazy_camera_longitude', true ) != NULL
-       && get_post_meta( get_the_ID(), '_eazy_camera_latitude', true ) != NULL) {
+  $lat_long_vals = array();
+    if (eazy_photo_get_latitude() != NULL) { $lat_long_vals['latitude'] = get_photo_meta(get_the_ID())['latitude']; }
+    if (eazy_photo_get_longitude() != NULL) { $lat_long_vals['longitude'] = get_photo_meta(get_the_ID())['longitude']; }
+
+  if (isset($lat_long_vals['latitude']) && isset($lat_long_vals['longitude'])) {
     //add and enqueue google maps scripts using api key setting
     eazy_photo_enqueue_google_maps();
-    //add inline script to footer
-    add_action( 'wp_footer', 'eazy_photo_inline_script', 50 );
-    //display map
-    ?><div id="map"></div><?php
-  } else { ?>
-    <script type="text/javascript">console.log("Your photo location is not set.");</script>
-  <?php }
-}
 
+    // enque script to make map
+    wp_register_script( 'eazy-make-map', EZ_PLUGIN_URL.'includes/js/make-map.js', array(), '', true );
+    wp_enqueue_script( 'eazy-make-map');
+    //localze lat & long
+    $params = array(
+      'latitude'  => $lat_long_vals['latitude'],
+      'longitude' => $lat_long_vals['longitude'],
+    );
+    wp_localize_script( 'eazy-make-map', 'EazyPhotoMap', $params );
+    //display map ?>
+    <div id="map"></div>
+    <script type="text/javascript">console.log("Your photo location is not set.");</script>
+    <?php 
+  }
+}
