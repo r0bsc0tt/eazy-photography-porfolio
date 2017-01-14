@@ -30,6 +30,7 @@ if ( !post_type_exists( 'eazy-photo' ) ) {
 		register_post_type('eazy-photo',$args);
 	}
 
+
 	// registers photo category and collection taxonomies
 	add_action( 'init', 'eazy_photography_taxonomy', 0 );
 	function eazy_photography_taxonomy() {
@@ -88,7 +89,7 @@ if ( !post_type_exists( 'eazy-photo' ) ) {
 					'public' => true,
 					'query_var'=> true,
 					'label' => 'Photo Collections',
-					'rewrite' => array('slug' => 'photo-collections', 'hierarchical' => true)
+					'rewrite' => array('slug' => 'photo-collection', 'hierarchical' => true)
 					)
 		);
 	}

@@ -92,20 +92,38 @@ if ('is_admin' ) {
 	        /* OK, it's safe for us to save the data now. */
 	 
 	        // Sanitize the user input.
-	        $cameralatitude = sanitize_text_field( $_POST['eazy_camera_latitude'] );
-	        $cameralongitude = sanitize_text_field( $_POST['eazy_camera_longitude'] );
+	        $cameramaptype	 			= $_POST['eazy_camera_map_type'] ;
+	        $cameralatitude 			= sanitize_text_field( $_POST['eazy_camera_latitude'] );
+	        $cameralongitude 			= sanitize_text_field( $_POST['eazy_camera_longitude'] );
+	        $cameralocationiframe = esc_url_raw( $_POST['eazy_camera_iframe'] );
 	        // Update the meta field.
 	        //update_post_meta( $post_id, '_eazy_camera_latitude', $cameralatitude );
 	        //update_post_meta( $post_id, '_eazy_camera_longitude', $cameralongitude );
 	        $locationarray = array();
 	        
-	        if ($cameralatitude != NULL || '0.000000') {
-	        	$locationarray['latitude'] = $cameralatitude;
+	        if ($cameramaptype != '') {
+	        	$locationarray['map_type'] = $cameramaptype;
+	        } else { 
+	        	$locationarray['map_type'] = NULL; 
 	        }
-	        if ($cameralongitude != NULL || '0.000000') {
-	        	$locationarray['longitude'] = $cameralongitude;
+	        
+	        if ($cameralatitude != NULL ) {
+	        	$locationarray['latitude'] = $cameralatitude;
+	        } else { 
+	        	$locationarray['latitude'] = NULL; 
 	        }
 
+	        if ($cameralongitude != NULL ) {
+	        	$locationarray['longitude'] = $cameralongitude;
+	        } else { 
+	        	$locationarray['longitude'] = NULL; 
+	        }
+
+	        if ($cameralocationiframe != NULL || '') {
+	        	$locationarray['iframe'] = $cameralocationiframe;
+	        } else { 
+	        	$locationarray['iframe'] = NULL; 
+	        }
 
 
 	        eazy_photo_add_location_to_db($post_id, $locationarray);
@@ -124,24 +142,47 @@ if ('is_admin' ) {
 
 	        $thisphoto = get_photo_meta(get_the_ID());
 	        // Use get_post_meta to retrieve an existing value from the database.
-	        $cameralatitude_value = $thisphoto['latitude'];
-	        $cameralongitude_value = $thisphoto['longitude'];
+	        $cameramap_type 				= $thisphoto['map_type'];
+	        $cameralatitude_value 	= $thisphoto['latitude'];
+	        $cameralongitude_value 	= $thisphoto['longitude'];
+	        $cameraiframe_value 		= $thisphoto['iframe'];
 
 	        // Display the form, using the current value. ?>
-	      	<div class="location-setting">
-		        <label for="eazy_camera_latitude" class="camera-setting-label">
-		            <?php _e( 'Latitude: ', 'eazy-photography' ); ?>
+
+	      	<div class="map-type-setting">
+		        <label for="eazy_camera_map_type" class="camera-setting-label">
+		            <?php _e( 'Map Type: ', 'eazy-photography' ); ?>
 		        </label>
-		        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_latitude" name="eazy_camera_latitude" value="<?php echo esc_attr( $cameralatitude_value ); ?>"  size="25"/>
+		        <select id="eazy_camera_map_type" name="eazy_camera_map_type">
+						  <option value=""  ></option>
+						  <option value="javascript" <?php selected( $cameramap_type, 'javascript' ); ?> >javascript</option>
+						  <option value="iframe" <?php selected( $cameramap_type, 'iframe' ); ?> >iframe</option>
+						</select>
 	        </div>
-	        <div class="location-setting">
-		        <label for="eazy_camera_longitude" class="camera-setting-label">
-		            <?php _e( 'Longitude: ', 'eazy-photography' ); ?>
+	   			<div  id="javascript-settings">   		
+		      	<div class="location-setting">
+			        <label for="eazy_camera_latitude" class="camera-setting-label">
+			            <?php _e( 'Latitude: ', 'eazy-photography' ); ?>
+			        </label>
+			        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_latitude" name="eazy_camera_latitude" value="<?php echo esc_attr( $cameralatitude_value ); ?>"  size="25"/>
+		        </div>
+
+		        <div class="location-setting">
+			        <label for="eazy_camera_longitude" class="camera-setting-label">
+			            <?php _e( 'Longitude: ', 'eazy-photography' ); ?>
+			        </label>
+			        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_longitude" name="eazy_camera_longitude" value="<?php echo esc_attr( $cameralongitude_value ); ?>" size="25" />
+		        </div>
+
+		        <p><?php _e( 'Format should be something like: ', 'eazy-photography' ); ?> <code>+###.######</code> <?php _e( 'or ', 'eazy-photography' ); ?> <code>-08.1234598</code></p>
+		        <p><a href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en" target="_blank">Click Here</a> for more information.</p>
+	    		</div>
+	    		<div id="iframe-settings">   
+		        <label for="eazy_camera_iframe" class="camera-setting-label">
+		            <?php _e( 'iframe url: ', 'eazy-photography' ); ?>
 		        </label>
-		        <input type="text" pattern="[-+]?[0-9]*[.][0-9]*"  id="eazy_camera_longitude" name="eazy_camera_longitude" value="<?php echo esc_attr( $cameralongitude_value ); ?>" size="25" />
-	        </div>
-	        <p>Format should be something like <code>+###.######</code> or <code>-08.1234598</code></p>
-	        <p><a href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en" target="_blank">Click Here</a> for more information.</p>
+		       	<input type="url" pattern="[@^(https?|ftp)://[^\s/$.?#].[^\s]*$@iS]" id="eazy_camera_iframe" name="eazy_camera_iframe" value="<?php echo esc_attr( $cameraiframe_value ); ?>"  />       	
+	    		</div>
 	        <?php
 	    }
 	}

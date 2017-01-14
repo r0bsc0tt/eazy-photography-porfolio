@@ -61,9 +61,9 @@ if ('is_admin' ) {
   **/
   function is_av_val_selected($current_av, $val) {
     $exif_av = eazy_photo_exif_info_get_value('aperture');
-    if ($exif_av == $val) {
+    if ($current_av == $val) {
       return "selected";
-    }elseif ($current_av == $val) {
+    }elseif ($exif_av == $val) {
       return "selected";
     }
   }
@@ -108,15 +108,15 @@ if ('is_admin' ) {
   **/  
   function is_tv_val_selected($current_tv, $val) {
     $exif_tv = eazy_photo_exif_info_get_value('shutter_speed');
-    if ($exif_tv == $val) {
-      if (in_array($exif_tv, $all_shutter_speed_vals)) {
-        echo "selected";
-      } else {
-      echo eazy_photo_exif_info_get_value('shutter_speed');
-      }   
-    }elseif ($current_tv == $val) {
-        echo "selected";
+    
+    if ($current_tv == $val) {
+      echo "selected";
+    } elseif ($exif_tv == $val) {
+      echo "selected";
+    } else {
+      
     }
+
   }
 
 

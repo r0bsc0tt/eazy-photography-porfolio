@@ -119,7 +119,7 @@ function get_shutter_speed_icon() { ?>
   <svg version="1.1" id="shutter-speed-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
      width="60px" height="60px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve">
     <g id="shutter-speed">
-      <path id="clock" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M13.5,18.8c-0.2-0.2-0.5-0.4-0.7-0.7
+      <path id="clock" fill-rule="evenodd" clip-rule="evenodd" d="M13.5,18.8c-0.2-0.2-0.5-0.4-0.7-0.7
         c-0.3,0.3-0.6,0.6-1,0.9c-1.1-0.5-1.3-1.2-0.7-2.3c1-1.7,2.4-3.1,4.1-4.1c1-0.6,1.8-0.6,2.4,0.6c-0.3,0.3-0.6,0.6-0.9,1
         c0.3,0.5,0.5,0.8,1.1,0.4c1.5-1.1,3.2-2.1,4.9-2.8c1.7-0.7,3.5-1.2,5.3-1.4c0.2-0.7,0.2-1.3,0-2c-1,0-2.1,0-3.3,0c0-1,0-1.9,0-2.8
         c0-0.6,0.3-0.8,0.7-1.1c2.9-2,7.8-2,10.8,0C36.9,5,37.1,5.3,37.1,6c-0.1,0.8,0,1.6,0,2.5c-1.1,0-2.1,0-3.2,0
@@ -127,32 +127,32 @@ function get_shutter_speed_icon() { ?>
         c1.7,1,3,2.3,4,4c0.6,1,0.8,1.8-0.5,2.4c-0.4-0.1-0.6-0.6-1.1-0.8c-0.2,0.2-0.4,0.4-0.7,0.6c7.5,10,5.5,23.1-3.2,30.5
         c-8.2,7-20.5,6.9-28.8-0.2C8.3,42.1,5.8,29.2,13.5,18.8z M31,13.1c-10.7,0-19.4,8.7-19.4,19.4c0,10.6,8.7,19.2,19.2,19.3
         c10.7,0,19.5-8.6,19.5-19.3C50.3,21.8,41.7,13.1,31,13.1z"/>
-      <path id="hand" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M42.8,20.7c-0.1,0.9-0.5,1.6-0.9,2.2
+      <path id="hand" fill-rule="evenodd" clip-rule="evenodd" d="M42.8,20.7c-0.1,0.9-0.5,1.6-0.9,2.2
         c-2.6,4-5.6,7.7-8.8,11.2c-1.2,1.3-2.9,1.3-4.1,0.3c-1.2-1.2-1.2-2.9,0.2-4.1c3.5-3.2,7.2-6.2,11.2-8.8
         C41.6,20.7,41.7,20.7,42.8,20.7z"/>
-      <path id="t12" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M32.4,15.8c-0.1,0.8-0.6,1.4-1.4,1.3
+      <path id="t12" fill-rule="evenodd" clip-rule="evenodd" d="M32.4,15.8c-0.1,0.8-0.6,1.4-1.4,1.3
         c-0.8,0-1.3-0.5-1.3-1.3c0-0.9,0.5-1.4,1.3-1.4C31.8,14.4,32.3,14.9,32.4,15.8z"/>
-      <path id="t11" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M22.6,19.3c-0.9-0.1-1.4-0.6-1.3-1.5
+      <path id="t11" fill-rule="evenodd" clip-rule="evenodd" d="M22.6,19.3c-0.9-0.1-1.4-0.6-1.3-1.5
         c0-0.8,0.6-1.3,1.3-1.3c0.9,0,1.4,0.5,1.4,1.4C24,18.9,23.4,19.3,22.6,19.3z"/>
-      <path id="t10" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M17.9,24c-0.1,0.8-0.5,1.4-1.4,1.4
+      <path id="t10" fill-rule="evenodd" clip-rule="evenodd" d="M17.9,24c-0.1,0.8-0.5,1.4-1.4,1.4
         c-0.8,0-1.3-0.4-1.4-1.2c-0.1-0.9,0.4-1.4,1.3-1.5C17.3,22.7,17.8,23.2,17.9,24z"/>
-      <path id="t9" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M15.7,32.4c-0.1,0.8-0.6,1.4-1.4,1.3
+      <path id="t9" fill-rule="evenodd" clip-rule="evenodd" d="M15.7,32.4c-0.1,0.8-0.6,1.4-1.4,1.3
         c-0.9,0-1.4-0.5-1.3-1.4c0-0.8,0.6-1.3,1.3-1.3C15.1,31,15.6,31.6,15.7,32.4z"/>
-      <path id="t8" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M16.5,39.4c0.9,0.1,1.4,0.6,1.4,1.4
+      <path id="t8" fill-rule="evenodd" clip-rule="evenodd" d="M16.5,39.4c0.9,0.1,1.4,0.6,1.4,1.4
         c0,0.9-0.6,1.3-1.5,1.3c-0.8,0-1.3-0.5-1.3-1.3C15.1,39.9,15.7,39.5,16.5,39.4z"/>
-      <path id="t7" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M22.6,45.5c0.9,0.1,1.4,0.6,1.4,1.4
+      <path id="t7" fill-rule="evenodd" clip-rule="evenodd" d="M22.6,45.5c0.9,0.1,1.4,0.6,1.4,1.4
         c0,0.9-0.6,1.3-1.5,1.3c-0.8,0-1.3-0.5-1.3-1.3C21.2,46,21.8,45.6,22.6,45.5z"/>
-      <path id="t6" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M31,50.5c-0.8-0.1-1.4-0.5-1.4-1.4c0-0.9,0.5-1.4,1.4-1.4
+      <path id="t6" fill-rule="evenodd" clip-rule="evenodd" d="M31,50.5c-0.8-0.1-1.4-0.5-1.4-1.4c0-0.9,0.5-1.4,1.4-1.4
         c0.8,0,1.3,0.5,1.3,1.3C32.4,49.9,31.8,50.4,31,50.5z"/>
-      <path id="t5" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M39.3,45.5c0.9,0.1,1.4,0.6,1.4,1.4
+      <path id="t5" fill-rule="evenodd" clip-rule="evenodd" d="M39.3,45.5c0.9,0.1,1.4,0.6,1.4,1.4
         c0,0.9-0.6,1.3-1.5,1.3c-0.8,0-1.3-0.5-1.3-1.3C37.9,46,38.5,45.6,39.3,45.5z"/>
-      <path id="t4" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M45.4,42.1C44.5,42,44,41.6,44,40.7
+      <path id="t4" fill-rule="evenodd" clip-rule="evenodd" d="M45.4,42.1C44.5,42,44,41.6,44,40.7
         c0-0.8,0.6-1.3,1.3-1.3c0.9,0,1.4,0.5,1.4,1.4C46.8,41.6,46.2,42.1,45.4,42.1z"/>
-      <path id="t3" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M47.7,33.8c-0.9-0.1-1.4-0.5-1.4-1.4
+      <path id="t3" fill-rule="evenodd" clip-rule="evenodd" d="M47.7,33.8c-0.9-0.1-1.4-0.5-1.4-1.4
         c0-0.9,0.6-1.4,1.4-1.3c0.8,0,1.3,0.5,1.3,1.3C49,33.2,48.5,33.7,47.7,33.8z"/>
-      <path id="t2" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M46.8,24c-0.1,0.8-0.5,1.4-1.4,1.4
+      <path id="t2" fill-rule="evenodd" clip-rule="evenodd" d="M46.8,24c-0.1,0.8-0.5,1.4-1.4,1.4
         c-0.8,0-1.3-0.4-1.4-1.2c-0.1-0.9,0.4-1.4,1.3-1.5C46.2,22.7,46.7,23.2,46.8,24z"/>
-      <path id="t1" fill-rule="evenodd" clip-rule="evenodd" fill="#050505" d="M40.7,18c-0.1,0.8-0.6,1.4-1.4,1.3
+      <path id="t1" fill-rule="evenodd" clip-rule="evenodd" d="M40.7,18c-0.1,0.8-0.6,1.4-1.4,1.3
         c-0.8,0-1.3-0.5-1.3-1.3c0-0.9,0.5-1.4,1.3-1.4C40.1,16.6,40.6,17.1,40.7,18z"/>
     </g>
   </svg>

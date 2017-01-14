@@ -26,14 +26,22 @@ class eazy_photography_widget_google_maps extends WP_Widget {
 
   // Widget front-end
   public function widget( $args, $instance ) {
+    $map_type = eazy_photo_get_map_type();
     echo $args['before_widget'];
-    eazy_photo_make_map();
+      if ($map_type == 'iframe') {
+        eazy_photo_make_map_iframe();
+      } elseif ($map_type == 'javascript') {
+        eazy_photo_make_map();
+      } else {}
     echo $args['after_widget'];
+
   }
       
   // Widget Backend 
   public function form( $instance ) { ?>
-    <p><?php __('Will display location settings you can add to each photo. You need to have your API key added to the settings page for it to work.', 'galleria'); ?></p>
+    <p><b>Display photo's location on a map.</b></p>
+    <p>You can control the map settins on the photo's admin page. </p>
+    <p>If using the javascript map, make sure you set your API key on the plugin settings page. </p>
     <?php
   }
   
@@ -42,6 +50,11 @@ class eazy_photography_widget_google_maps extends WP_Widget {
     $instance = array();
     $instance['map'] = ( ! empty( $new_instance['map'] ) ) ? strip_tags( $new_instance['map'] ) : '';
     return $instance;
+/*
+    $instance = array();
+    $instance['eazy_photo_iframe'] = $new_instance[ 'eazy_photo_iframe' ];
+    return $instance;
+*/
   }
 } // end eazy_photography_widget_google_maps
 

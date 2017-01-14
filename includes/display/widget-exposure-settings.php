@@ -29,17 +29,16 @@ class eazy_photography_widget_exposure extends WP_Widget {
     $display_lcdscreen = $instance[ 'eazy_photo_lcd' ] ? 'true' : 'false';
     echo $args['before_widget'];
 
-
       $aperture = eazy_photo_aperture();
       $shutter_speed = eazy_photo_shutter_speed();
       $iso = eazy_photo_iso();
+      
       if ($instance['eazy_photo_lcd'] == 'on') {
         get_camera_lcd_exposure($aperture, $shutter_speed, $iso);
       }else {
         get_camera_non_lcd_exposure($aperture, $shutter_speed, $iso);
       }
       
-
 
     echo $args['after_widget'];
   }

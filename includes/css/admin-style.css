@@ -56,6 +56,31 @@
 	width: 100%;
 }
 
+#eazy_camera_iframe {
+	width: 100%;
+}
+
+th#aperture, th#shutter_speed, th#iso, th#focal_length, th#camera_model, td.aperture, td.shutter_speed, td.iso, td.focal_length, td.camera_model {
+
+}
+
+th#aperture, th#shutter_speed, th#iso{
+
+}
+
+td.aperture, td.shutter_speed, td.iso {
+
+}
+
+.photo-location-title {
+	font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+    margin-top: 0;
+    text-decoration: underline;
+}
+
+
 
 @media screen and (min-width: 768px) {
 	#advanced-sortables {
@@ -80,8 +105,39 @@
 		order: 3;
 		width: 100%;	
 	}
+	.map-type-setting {
+		display: block;
+		margin-bottom: 1rem;
+	}
+	#eazy_camera_map_type {
+		display: block;
+	}
 	.location-setting {
 		display: inline-block;
 		max-width: 49%;
+	}
+	th#aperture, th#shutter_speed, th#iso, th#focal_length, th#camera_model {
+		vertical-align: bottom;
+	}
+
+	th#aperture, th#shutter_speed, th#iso, th#focal_length, th#camera_model, td.aperture, td.shutter_speed, td.iso, td.focal_length {
+		padding-top: 0;
+		text-align: center;
+	}
+
+	th#aperture, th#shutter_speed, th#iso, td.aperture, td.shutter_speed, td.iso {
+	width: 10%;
+	}
+
+	td.column-image img {
+		max-width: 100%;
+	}
+
+	td.camera_model {
+
+	}
+
+	th#focal_length, th#camera_model {
+
 	}
 }

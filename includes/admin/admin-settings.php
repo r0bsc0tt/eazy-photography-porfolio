@@ -30,12 +30,16 @@ if ('is_admin' ) {
       add_settings_field("eazy-photo-settings-maps-api-key", "Google Maps API Key: ", "eazy_photo_google_maps_api_callback", "eazy-photography-settings-", "settings");  
       add_settings_field("eazy-photo-settings-comments", "Allow Comments: ", "eazy_photo_comments_settings_callback", "eazy-photography-settings-", "settings");  
       add_settings_field("eazy-photo-settings-author", "Show Author: ", "eazy_photo_author_settings_callback", "eazy-photography-settings-", "settings");      
+      add_settings_field("eazy-photo-settings-fullmap-center-lat", "Photo Map Latitude: ", "eazy_photo_fullmap_center_lat_callback", "eazy-photography-settings-", "settings");      
+      add_settings_field("eazy-photo-settings-fullmap-center-long", "Photo Map Longitude: ", "eazy_photo_fullmap_center_long_callback", "eazy-photography-settings-", "settings");      
 
       register_setting("settings", "eazy-photo-settings-camera");
       register_setting("settings", "eazy-photo-settings-maps");
       register_setting("settings", "eazy-photo-settings-maps-api-key");
       register_setting("settings", "eazy-photo-settings-comments");
       register_setting("settings", "eazy-photo-settings-author");
+      register_setting("settings", "eazy-photo-settings-fullmap-center-lat");
+      register_setting("settings", "eazy-photo-settings-fullmap-center-long");
   }
 
   //adds html callback for google maps to the settings metabox
@@ -67,6 +71,15 @@ if ('is_admin' ) {
           <label for="eazy-photo-settings-author"><?php __('on', 'eazy-photography'); ?>on</label>
      <?php
   }    
-
-
+  //add html callback for google maps api key to the settings metabox
+  function eazy_photo_fullmap_center_lat_callback() { ?>
+          <input type="text" pattern="[-+]?[0-9]*[.][0-9]*" id="eazy-photo-settings-fullmap-center-lat" name="eazy-photo-settings-fullmap-center-lat" value="<?php echo get_option('eazy-photo-settings-fullmap-center-lat'); ?>">    
+    <?php
+  }  
+  //add html callback for google maps api key to the settings metabox
+  function eazy_photo_fullmap_center_long_callback() { ?>
+          <input type="text" pattern="[-+]?[0-9]*[.][0-9]*" id="eazy-photo-settings-fullmap-center-long" name="eazy-photo-settings-fullmap-center-long" value="<?php echo get_option('eazy-photo-settings-fullmap-center-long'); ?>">
+          <p><?php _e( 'Format for longitude and latitude should be something like: ', 'eazy-photography' ); ?> <code>+###.######</code> <?php _e( 'or ', 'eazy-photography' ); ?> <code>-08.1234598</code></p>
+    <?php
+  } 
 }

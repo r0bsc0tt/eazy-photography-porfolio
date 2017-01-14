@@ -1,6 +1,8 @@
 <?php 
 if ( !defined( 'WPINC' ) ) { die; }
 
+if ('is_admin' ) {
+
 // on activation install the table
 register_activation_hook( EZ_PLUGIN_FILE_PATH, 'eazy_photo_install' );
 //register_activation_hook( EZ_PLUGIN_FILE_PATH, 'eazy_photo_install_data' );
@@ -20,11 +22,13 @@ function eazy_photo_install() {
     id mediumint(9) unsigned NOT NULL AUTO_INCREMENT,
     aperture float NULL,
     shutter_speed float NULL,
-    iso float NULL,
+    iso text NULL,
     camera text NULL,
     focal_length float NULL,
+    map_type text NULL,
     latitude text NULL,
     longitude text NULL,
+    iframe text NULL,
     PRIMARY KEY  (id)
   ) $charset_collate;";
 
@@ -75,16 +79,7 @@ function eazy_photo_add_to_db($id, $expvalarray) {
         $wpdb->update( 
         $table_name,  
         $expvalarray,  // string
-        array( 'id' => $id ), 
-        array( 
-          '%d', // id
-          '%f', // aperture
-          '%f', // shutter speed
-          '%f', // iso
-          '%s', // camera
-          '%f', // focal length
-        ), 
-        array( '%s' ) 
+        array( 'id' => $id )
       );
     } else {
       $wpdb->insert( 
@@ -102,13 +97,7 @@ function eazy_photo_add_location_to_db($id, $locationarray) {
       $wpdb->update( 
         $table_name,  
         $locationarray,  // string
-        array( 'id' => $id ), 
-        array( 
-          //'%d', // id
-          '%s', // latitude
-          '%s', // longitude
-        ), 
-        array( '%s' ) 
+        array( 'id' => $id )
       );
   } else {
       $wpdb->insert( 
@@ -117,4 +106,5 @@ function eazy_photo_add_location_to_db($id, $locationarray) {
       );
   }
 
-  }
+}
+}

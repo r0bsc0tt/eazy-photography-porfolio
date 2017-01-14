@@ -3,32 +3,91 @@ if ( !defined( 'WPINC' ) ) { die; }
 
 if ('is_admin' ) {
 
-  //adds a column to the eazy photos admin archive page
-  add_filter('manage_eazy-photo_posts_columns', 'eazy_photography_columns_head');
-  function eazy_photography_columns_head($defaults) {
-    $defaults['featured_image'] = 'Featured Image';
-    return $defaults;
-  }
+// Create admin column names 
+add_filter( 'manage_eazy-photo_posts_columns', 'eazy_photo_admin_column_names' ) ;
+function eazy_photo_admin_column_names( $columns ) {
 
-  //gets featured image for photo
-  function eazy_photography_admin_image($post_ID) {
-    $post_thumbnail_id = get_post_thumbnail_id($post_ID);
-    if ($post_thumbnail_id) {
-        $post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'thumbnail');
-        return $post_thumbnail_img[0];
-    }
-  }
-   
-  // adds featured image to the admin column 
-  add_action('manage_posts_custom_column', 'eazy_photography_columns_content', 10, 2);
-  function eazy_photography_columns_content($column_name, $post_ID) {
-    if ($column_name == 'featured_image') {
-      $post_featured_image = eazy_photography_admin_image($post_ID);
-      if ($post_featured_image) {
-        echo '<img src="' . $post_featured_image . '" />';
+  $columns = array(
+    'cb' => '<input type="checkbox" />',
+    'title' => __( 'Title' ),
+    'image' => __( 'Image' ),
+    'aperture' => __( 'AV' ),
+    'shutter_speed' => __( 'TV' ),
+    'iso' => __( 'ISO' ),
+    'focal_length' => __( 'Focal Length' ),    
+    'camera_model' => __( 'Camera Model' ),
+    'date' => __( 'Date' )
+  );
+
+  return $columns;
+}
+
+//register image size for admin column
+add_image_size( 'eazy-photo-col-img', 75, 75, false );
+
+add_action( 'manage_eazy-photo_posts_custom_column', 'my_manage_eazy_photo_columns', 10, 2 );
+function my_manage_eazy_photo_columns( $column, $post_id ) {
+  global $post;
+
+  switch( $column ) {
+
+    /* If displaying the 'image' column. */
+    case 'image' :
+
+        $post_thumbnail_id = get_post_thumbnail_id($post_id);
+        if ($post_thumbnail_id) {
+            $post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'eazy-photo-col-img');
+            echo '<img src="' . $post_thumbnail_img[0] . '" />';
+        }
+
+      break;
+
+    /* If displaying the 'aperture' column. */
+    case 'aperture' :
+      /* Get the aperture value for the post. */
+      $aperture = eazy_photo_aperture();
+      if ($aperture != NULL) {
+        echo "<div class='eazy-photo-cols eazy-photo-cols-exp' id='admin-exp-av'><i>f</i>/".$aperture."</div>";
       }
-    }
+      break;
+    /* If displaying the 'shutter speed' column. */
+    case 'shutter_speed' :
+      /* Get the aperture value for the post. */
+      $shutter_speed = eazy_photo_shutter_speed();
+      if ($shutter_speed != NULL) {
+        echo "<div class='eazy-photo-cols eazy-photo-cols-exp' id='admin-exp-tv'>".clean_shutter_speed_value($shutter_speed)."</div>";
+      }
+      break;
+    /* If displaying the 'iso' column. */
+    case 'iso' :
+      /* Get the aperture value for the post. */
+      $iso = eazy_photo_iso();
+      if ($iso != NULL) {
+        echo "<div class='eazy-photo-cols eazy-photo-cols-exp' id='admin-exp-iso'>".$iso."</div>";
+      }
+      break;
+    /* If displaying the 'focal length' column. */
+    case 'focal_length' :
+      /* Get the aperture value for the post. */
+      $focal_length = eazy_photo_focal_length();
+      if ($focal_length != NULL) {
+        echo "<div class='eazy-photo-cols' id='admin-exp-cam'>".$focal_length."mm</div>";
+      }
+      break;
+    /* If displaying the 'camera model' column. */
+    case 'camera_model' :
+      /* Get the aperture value for the post. */
+      $camera_model = eazy_photo_camera_model();
+      if ($camera_model != NULL) {
+        echo "<div class='eazy-photo-cols' id='admin-exp-cam'>".$camera_model."</div>";
+      }
+      break;
+    /* Just break out of the switch statement for everything else. */
+    default :
+      break;
   }
+}
+
 
   //adds settings page to photos menu
   add_action("admin_menu", "add_photography_settings_menu");  
